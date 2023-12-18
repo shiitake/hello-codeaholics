@@ -3,21 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCodeaholics.Core", "HelloCodeaholics.Core\HelloCodeaholics.Core.csproj", "{E22DB381-67E0-4413-9E81-7ED1427AB876}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Core", "HelloCodeaholics.Core\HelloCodeaholics.Core.csproj", "{E22DB381-67E0-4413-9E81-7ED1427AB876}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCodeaholics.Infrastructure", "HelloCodeaholics.Infrastructure\HelloCodeaholics.Infrastructure.csproj", "{6EB69D4F-F932-4906-9259-F9BB4096E8E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Infrastructure", "HelloCodeaholics.Infrastructure\HelloCodeaholics.Infrastructure.csproj", "{6EB69D4F-F932-4906-9259-F9BB4096E8E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCodeaholics.Services", "HelloCodeaholics.Services\HelloCodeaholics.Services.csproj", "{EA3DA99E-EDC6-4A6C-AEB8-2B3BC3A31041}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Services", "HelloCodeaholics.Services\HelloCodeaholics.Services.csproj", "{EA3DA99E-EDC6-4A6C-AEB8-2B3BC3A31041}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloCodeaholics.Web", "HelloCodeaholics.Web\HelloCodeaholics.Web.csproj", "{960D33DC-B055-4FF6-9D30-ECA8113D0865}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Web", "HelloCodeaholics.Web\HelloCodeaholics.Web.csproj", "{960D33DC-B055-4FF6-9D30-ECA8113D0865}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{59841BCE-7E06-42DE-8A5F-6CEEB13CD385}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests.HelloCodeaholics.Services", "..\..\test\UnitTests.HelloCodeaholics.Services\UnitTests.HelloCodeaholics.Services.csproj", "{7CF4E9CC-0645-4069-98E1-50A58811CAC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E22DB381-67E0-4413-9E81-7ED1427AB876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -36,5 +37,18 @@ Global
 		{960D33DC-B055-4FF6-9D30-ECA8113D0865}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{960D33DC-B055-4FF6-9D30-ECA8113D0865}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{960D33DC-B055-4FF6-9D30-ECA8113D0865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CF4E9CC-0645-4069-98E1-50A58811CAC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CF4E9CC-0645-4069-98E1-50A58811CAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CF4E9CC-0645-4069-98E1-50A58811CAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CF4E9CC-0645-4069-98E1-50A58811CAC4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7CF4E9CC-0645-4069-98E1-50A58811CAC4} = {59841BCE-7E06-42DE-8A5F-6CEEB13CD385}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F59ABE81-E6B0-490F-B639-97767B8F69BF}
 	EndGlobalSection
 EndGlobal

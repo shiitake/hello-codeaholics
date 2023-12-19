@@ -14,7 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("HelloCodeEntities");
-builder.Services.AddDbContext<HelloCodeDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContextPool<HelloCodeDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IPharmacyService, PharmacyService>();
 

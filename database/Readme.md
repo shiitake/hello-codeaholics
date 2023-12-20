@@ -15,5 +15,5 @@ dotnet tool install --global dotnet-ef
 3. Run the following to update the database
 
 ```
-dotnet ef database update --project .\HelloCodeaholics.Infrastructure --context HelloCodeDbContext --startup-project .\HelloCodeaholics.Web
+dotnet ef database update --project .\HelloCodeaholics.Data --context HelloCodeDbContext --startup-project .\HelloCodeaholics.Api
 ```

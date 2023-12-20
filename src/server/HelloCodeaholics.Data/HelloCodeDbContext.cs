@@ -28,7 +28,8 @@ public partial class HelloCodeDbContext : DbContext
             entity.Property(p => p.State).HasMaxLength(50).IsRequired();
             entity.Property(p => p.Zip).IsRequired();
             entity.Property(p => p.CreatedDate).IsRequired();
-
+            entity.Property(p => p.CreatedBy).HasMaxLength(50).IsRequired().HasDefaultValue("HelloCode");
+            entity.Property(p => p.UpdatedBy).HasMaxLength(50).IsRequired(false);
         });
 
         OnModelCreatingPartial(modelBuilder);

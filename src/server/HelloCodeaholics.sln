@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Core", "HelloCodeaholics.Core\HelloCodeaholics.Core.csproj", "{E22DB381-67E0-4413-9E81-7ED1427AB876}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Common", "HelloCodeaholics.Common\HelloCodeaholics.Common.csproj", "{E22DB381-67E0-4413-9E81-7ED1427AB876}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Infrastructure", "HelloCodeaholics.Infrastructure\HelloCodeaholics.Infrastructure.csproj", "{6EB69D4F-F932-4906-9259-F9BB4096E8E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Data", "HelloCodeaholics.Data\HelloCodeaholics.Data.csproj", "{6EB69D4F-F932-4906-9259-F9BB4096E8E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Services", "HelloCodeaholics.Services\HelloCodeaholics.Services.csproj", "{EA3DA99E-EDC6-4A6C-AEB8-2B3BC3A31041}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Web", "HelloCodeaholics.Web\HelloCodeaholics.Web.csproj", "{960D33DC-B055-4FF6-9D30-ECA8113D0865}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloCodeaholics.Api", "HelloCodeaholics.Api\HelloCodeaholics.Api.csproj", "{960D33DC-B055-4FF6-9D30-ECA8113D0865}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{59841BCE-7E06-42DE-8A5F-6CEEB13CD385}"
 EndProject

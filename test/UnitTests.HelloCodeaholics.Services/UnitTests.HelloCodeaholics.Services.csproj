@@ -27,8 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\server\HelloCodeaholics.Core\HelloCodeaholics.Core.csproj" />
-    <ProjectReference Include="..\..\src\server\HelloCodeaholics.Infrastructure\HelloCodeaholics.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\server\HelloCodeaholics.Common\HelloCodeaholics.Common.csproj" />
+    <ProjectReference Include="..\..\src\server\HelloCodeaholics.Data\HelloCodeaholics.Data.csproj" />
     <ProjectReference Include="..\..\src\server\HelloCodeaholics.Services\HelloCodeaholics.Services.csproj" />
   </ItemGroup>
 

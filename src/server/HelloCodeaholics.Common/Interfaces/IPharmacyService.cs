@@ -10,7 +10,8 @@ namespace HelloCodeaholics.Core.Interfaces;
 public interface IPharmacyService
 {
     Task<Pharmacy?> GetPharmacyById(int id);
-    Task<List<Pharmacy>> GetPharmacyList();
+    Task<List<Pharmacy>> GetPharmacyList(int pageNumber = 1, int pageSize = 10);
     Task<bool> PharmacyExists(int id);
-    Task<Pharmacy> UpdatePharmacy(Pharmacy pharmacy);
+    Task<Pharmacy?> UpdatePharmacy(Pharmacy pharmacy);
+
 }

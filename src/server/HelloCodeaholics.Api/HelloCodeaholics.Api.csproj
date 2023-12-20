@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelloCodeaholics.Core\HelloCodeaholics.Core.csproj" />
+    <ProjectReference Include="..\HelloCodeaholics.Common\HelloCodeaholics.Common.csproj" />
     <ProjectReference Include="..\HelloCodeaholics.Services\HelloCodeaholics.Services.csproj" />
   </ItemGroup>
 

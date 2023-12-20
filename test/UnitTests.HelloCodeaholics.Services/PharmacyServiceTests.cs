@@ -31,9 +31,9 @@ namespace UnitTests.HelloCodeaholics.Services
                 .Options;
 
             _context = new HelloCodeDbContext(options);
-            _context.Pharmacies.Add(new Pharmacy { Id = 1, Name = "Test Pharmacy", Address = "Test Address", City = "Test City", State = "Test State", Zip = 12345, FilledPrescriptionsCount = 10, CreatedDate = DateTime.Now });
-            _context.Pharmacies.Add(new Pharmacy { Id = 2, Name = "Test Pharmacy2", Address = "Test Address", City = "Test City", State = "Test State", Zip = 12345, FilledPrescriptionsCount = 10, CreatedDate = DateTime.Now });
-            _context.Pharmacies.Add(new Pharmacy { Id = 3, Name = "Test Pharmacy3", Address = "Test Address", City = "Test City", State = "Test State", Zip = 12345, FilledPrescriptionsCount = 10, CreatedDate = DateTime.Now });
+            _context.Pharmacies.Add(new Pharmacy { Id = 1, Name = "Test Pharmacy", Address = "Test Address", City = "Test City", State = "Test State", Zip = 12345, FilledPrescriptionsCount = 10, CreatedDate = DateTime.Now, CreatedBy = "Test User" });
+            _context.Pharmacies.Add(new Pharmacy { Id = 2, Name = "Test Pharmacy2", Address = "Test Address", City = "Test City", State = "Test State", Zip = 12345, FilledPrescriptionsCount = 10, CreatedDate = DateTime.Now, CreatedBy = "Test User" });
+            _context.Pharmacies.Add(new Pharmacy { Id = 3, Name = "Test Pharmacy3", Address = "Test Address", City = "Test City", State = "Test State", Zip = 12345, FilledPrescriptionsCount = 10, CreatedDate = DateTime.Now, CreatedBy = "Test User" });
             _context.SaveChanges();
         }
 
@@ -171,6 +171,20 @@ namespace UnitTests.HelloCodeaholics.Services
             // Assert
             Assert.Equal("Updated Name", updatedPharmacy.Name);
             Assert.NotNull(updatedPharmacy.UpdatedDate);
+        }
+
+        [Fact]
+        public async Task UpdatePharmacy_GivenInvalidPharmacy_ShouldReturnNull()
+        {
+            // Arrange
+            var service = new PharmacyService(_context);
+            var invalidPharmacy = new Pharmacy() { Id = 7, Name = "Invalid Pharmacy" };
+
+            // Act
+            var updatedPharmacy = await service.UpdatePharmacy(invalidPharmacy);
+
+            // Assert
+            Assert.Null(updatedPharmacy);
         }
 
     }

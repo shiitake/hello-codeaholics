@@ -17,4 +17,8 @@ public class Pharmacy
     public int FilledPrescriptionsCount { get; set; }
     public DateTime CreatedDate {  get; set; }
     public DateTime? UpdatedDate { get; set;}
+    public string CreatedBy { get; set; } = string.Empty;
+    public string UpdatedBy { get; set;}
+
+
 }

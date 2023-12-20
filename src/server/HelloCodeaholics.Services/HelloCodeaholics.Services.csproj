@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelloCodeaholics.Core\HelloCodeaholics.Core.csproj" />
-    <ProjectReference Include="..\HelloCodeaholics.Infrastructure\HelloCodeaholics.Infrastructure.csproj" />
+    <ProjectReference Include="..\HelloCodeaholics.Common\HelloCodeaholics.Common.csproj" />
+    <ProjectReference Include="..\HelloCodeaholics.Data\HelloCodeaholics.Data.csproj" />
   </ItemGroup>
 
 </Project>

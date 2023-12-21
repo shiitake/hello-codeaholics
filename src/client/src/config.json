@@ -1,0 +1,7 @@
+{
+    "local" : {
+        "urls": {
+            "apiUrl": "https://localhost:5000"
+        }
+    }
+}

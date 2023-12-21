@@ -1,0 +1,46 @@
+.background {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    min-width: 813px;
+}
+
+.header-container {
+    width: 98%;
+    margin-left: 1%;
+    margin-bottom: 1%;
+    height: 2%
+}
+
+.header {
+    background-color: rgba(180,209,95,1);
+    display: flex;
+    align-items: center;
+    padding: 2%;
+    margin: 0%;
+    
+}
+
+.header-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.navMenu {
+    padding: 0%;
+    width: 100;
+    margin: 0%;
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+html {
+    font-size: 14px;
+}

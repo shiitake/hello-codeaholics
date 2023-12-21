@@ -1,4 +1,6 @@
+using HelloCodeaholics.Common.Interfaces;
 using HelloCodeaholics.Core.Interfaces;
+using HelloCodeaholics.Data;
 using HelloCodeaholics.Infrastructure;
 using HelloCodeaholics.Services.Application;
 
@@ -16,6 +18,7 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("HelloCodeEntities");
 builder.Services.AddDbContextPool<HelloCodeDbContext>(options => options.UseSqlServer(connectionString));
 
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(DataRepository<>));
 builder.Services.AddScoped<IPharmacyService, PharmacyService>();
 
 var app = builder.Build();

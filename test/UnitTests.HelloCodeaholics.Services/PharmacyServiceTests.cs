@@ -1,4 +1,6 @@
-﻿using HelloCodeaholics.Core.Domain.Entities;
+﻿using HelloCodeaholics.Common.Interfaces;
+using HelloCodeaholics.Core.Domain.Entities;
+using HelloCodeaholics.Data;
 using HelloCodeaholics.Infrastructure;
 using HelloCodeaholics.Services.Application;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +15,12 @@ namespace UnitTests.HelloCodeaholics.Services
     public class PharmacyServiceTests : IDisposable
     {
         private HelloCodeDbContext _context;
+        private IGenericRepository<Pharmacy> _pharmacyRepository;
 
         public PharmacyServiceTests()
         {
             SetupContext();
+            _pharmacyRepository = new DataRepository<Pharmacy>(_context);
         }
 
         public void Dispose()
@@ -41,7 +45,7 @@ namespace UnitTests.HelloCodeaholics.Services
         public async Task GetPharmacyById_GivenId_ShouldReturnValidPharmacy()
         {
             // Arrange
-            var service = new PharmacyService(_context);
+            var service = new PharmacyService(_pharmacyRepository);
             var id = 1;
 
             // Act
@@ -56,7 +60,7 @@ namespace UnitTests.HelloCodeaholics.Services
         public async Task GetPharmacyById_GivenNonExistentId_ShouldReturnNull()
         {
             // Arrange
-            var service = new PharmacyService(_context);
+            var service = new PharmacyService(_pharmacyRepository);
             var id = 9999; 
 
             // ACT
@@ -70,7 +74,7 @@ namespace UnitTests.HelloCodeaholics.Services
         public async Task GetPharmacyById_GivenInvalidId_ShouldReturnNull()
         {
             // Arrange
-            var service = new PharmacyService(_context);
+            var service = new PharmacyService(_pharmacyRepository);
             var id = 0; 
 
             // Act
@@ -84,7 +88,7 @@ namespace UnitTests.HelloCodeaholics.Services
         public async Task GetPharmacyById_GivenNegativeId_ShouldReturnNull()
         {
             // Arrange
-            var service = new PharmacyService(_context);
+            var service = new PharmacyService(_pharmacyRepository);
             var id = -1; 
 
             // Act
@@ -98,7 +102,7 @@ namespace UnitTests.HelloCodeaholics.Services
         public async Task GetPharmacyList_ShouldReturnAllPharmacies()
         {
             // Arrange
-            var service = new PharmacyService(_context);
+            var service = new PharmacyService(_pharmacyRepository);
 
             // Act
             var results = await service.GetPharmacyList();
@@ -116,8 +120,9 @@ namespace UnitTests.HelloCodeaholics.Services
                 .UseInMemoryDatabase(databaseName: "EmptyPharmacyDatabase")
                 .Options;
             var emptyContext = new HelloCodeDbContext(emptyContextOptions); 
+            var emptyRepository = new DataRepository<Pharmacy>(emptyContext);
 
-            var service = new PharmacyService(emptyContext);
+            var service = new PharmacyService(emptyRepository);
 
             // Act
             var results = await service.GetPharmacyList();
@@ -132,7 +137,7 @@ namespace UnitTests.HelloCodeaholics.Services
         public async Task PharmacyExists_GivenExistingId_ReturnsTrue()
         {
             // Arrange
-            var service = new PharmacyService(_context);
+            var service = new PharmacyService(_pharmacyRepository);
             var id = 1; // Id of existing pharmacy
 
             // Act
@@ -146,7 +151,7 @@ namespace UnitTests.HelloCodeaholics.Services
         public async Task PharmacyExists_GivenNonExistingId_ReturnsFalse()
         {
             // Arrange
-            var service = new PharmacyService(_context);
+            var service = new PharmacyService(_pharmacyRepository);
             var id = 9999; // Non-existing Id
 
             // Act
@@ -160,7 +165,7 @@ namespace UnitTests.HelloCodeaholics.Services
         public async Task UpdatePharmacy_GivenPharmacy_ShouldUpdateAndReturnUpdatedPharmacy()
         {
             // Arrange
-            var service = new PharmacyService(_context);
+            var service = new PharmacyService(_pharmacyRepository);
             var existingPharmacy = _context.Pharmacies.Find(1);
 
             existingPharmacy!.Name = "Updated Name";
@@ -177,7 +182,7 @@ namespace UnitTests.HelloCodeaholics.Services
         public async Task UpdatePharmacy_GivenInvalidPharmacy_ShouldReturnNull()
         {
             // Arrange
-            var service = new PharmacyService(_context);
+            var service = new PharmacyService(_pharmacyRepository);
             var invalidPharmacy = new Pharmacy() { Id = 7, Name = "Invalid Pharmacy" };
 
             // Act

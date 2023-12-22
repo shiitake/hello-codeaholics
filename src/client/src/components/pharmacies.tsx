@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button, Modal, ButtonProps, Form, Input } from 'semantic-ui-react'
+import { Table, Button, Loader} from 'semantic-ui-react'
 import { apiService } from '../api/apiService';
 import { Pharmacy } from '../api/types';
-import PharmacyModal from './pharmacymodal';
+import PharmacyModal from './PharmacyModal'
 import './pharmacies.css';
 
 const Pharmacies = () => {
@@ -10,41 +10,43 @@ const Pharmacies = () => {
     const [pageNumber, setPageNumber] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(5)
     const[isLoading, setIsLoading] = useState(false);
-    const[isModalOpen, setIsModalOpen] = useState(false);
     const[pharmacyList, setPharmacyList] = useState<Pharmacy[]|null>(null);
-    const[pharmacyData, setPharmacyData] = useState<Pharmacy|null>(null);
+    const[selectedPharmacy, setSelectedPharmacy] = useState<Pharmacy|null>(null);
+
     
     useEffect(() => {
         const loadDataAsync = async () => {
             try {
+                setIsLoading(true);
                 const apiData = await apiService.getPharmacyList(pageNumber, postsPerPage);
                 setPharmacyList(apiData);
             }
             catch (error) {
                 console.error("Failed to load data", error);
             }
+            finally {
+                setIsLoading(false);
+            }
         }
         loadDataAsync();
-    }, []);    
+    }, []);   
+    
+    const handleEdit = (pharmacy: Pharmacy) => {
+        setSelectedPharmacy(pharmacy);
+    }
 
-    const handleEditClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, data: ButtonProps) => {
-        event.preventDefault();
-        if (pharmacyList)
-        {
-            setPharmacyData(pharmacyList[data.value]);
-            console.log(pharmacyList[data.value]);
+    const handleSave = (updatedPharmacy: Pharmacy) => {
+        var idx = pharmacyList?.findIndex(x => x.id === updatedPharmacy.id);
+        if (pharmacyList !== null && idx !== undefined) {
+            pharmacyList[idx] = updatedPharmacy;
         }
-        setIsModalOpen(true);
+
     }
 
     return (
         <>
         <div id="pharmacy-container">
-
-        { pharmacyData !== null 
-        ? <PharmacyModal pharmacyData={pharmacyData} />
-        : ""        
-    }
+        <Loader>Loading</Loader>
         <Table unstackable sortable selectable celled fixed className='pharmacy-table'>
             <Table.Header>
                 <Table.Row>
@@ -67,15 +69,19 @@ const Pharmacies = () => {
                     <Table.Cell>{row.zip}</Table.Cell>
                     <Table.Cell>{row.filledPrescriptionsCount}</Table.Cell>                    
                     <Table.Cell>
-                        <Button
+                        <Button icon='edit'
                         value={index}
-                        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, data: ButtonProps) => handleEditClick(e, data)}>Edit</Button></Table.Cell>
+                        onClick={() => handleEdit(row)} 
+                        content='Edit'
+                        />                            
+                    </Table.Cell>
                 </Table.Row>
                 }) : ""
             }
            </Table.Body>
-
         </Table>
+        {selectedPharmacy && <PharmacyModal pharmacy={selectedPharmacy} closeModal={() => setSelectedPharmacy(null)} savePharmacy={handleSave} />
+        }
         </div>
         </>
 

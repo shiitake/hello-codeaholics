@@ -1,6 +1,6 @@
 import './App.css'
-import RxHeader from './components/rxheader'
-import Pharmacies from './components/pharmacies'
+import RxHeader from './components/RxHeader'
+import Pharmacies from './components/Pharmacies'
 
 function App() {
 

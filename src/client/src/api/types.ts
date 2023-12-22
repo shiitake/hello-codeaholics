@@ -11,3 +11,7 @@ export interface Pharmacy {
     updatedDate: Date,
     updatedBy: string
 }
+
+export interface Response {
+    message: string
+}

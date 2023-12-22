@@ -1,35 +1,126 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Modal, Form, Input, ButtonProps } from 'semantic-ui-react';
+import { Button, Modal, Form, Input, Message, Icon } from 'semantic-ui-react';
 import { apiService } from '../api/apiService';
-import { Pharmacy } from '../api/types';
+import { Pharmacy, Response } from '../api/types';
 
-type Props = {
-    pharmacyData: Pharmacy;
+interface PharmacyModalProps {
+    pharmacy: Pharmacy;
+    closeModal: () => void;
+    savePharmacy: (pharmacy: Pharmacy) => void;
 }
 
-const PharmacyModal = (props: Props) => {
+const PharmacyModal: React.FC<PharmacyModalProps> = ({ pharmacy, closeModal, savePharmacy }) => {
 
-    const [pharmacyData, setPharmacyData] = useState<Pharmacy>(props.pharmacyData);
-    const[isModalOpen, setIsModalOpen] = useState(false);
+    const [updatedPharmacy, setUpdatedPharmacy] = useState<Pharmacy>(pharmacy);
+    const [updateError, setUpdateError] = useState(false);
+
+    useEffect(() => {
+        pharmacy.id = 100;
+        pharmacy.updatedBy = 'portal';
+        setUpdatedPharmacy(pharmacy)
+    }, [pharmacy]);
+
+    const saveChanges = async () => {
+        console.log(updatedPharmacy);
+        setUpdateError(false);
+        try {
+            const response = await apiService.updatePharmacy(updatedPharmacy);
+            if ((response as Pharmacy).id !== undefined){
+                console.log('valid response', response);
+                //if save is successfull
+                savePharmacy(updatedPharmacy);
+                closeModal();
+            }
+            if ((response as Response).message !== undefined){
+                console.log('invalid response', response);
+                setUpdateError(true);
+            }
+            
+            
+        }
+        catch(error){
+            setUpdateError(true);
+            console.error('failed updating', error)
+        }
+        
+    }
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUpdatedPharmacy({...updatedPharmacy, [event.target.name]: event.target.value});
+    }
+
+    const handleDismiss = () => {
+        setUpdateError(false);
+    }
 
     return (
         <>
             <Modal
-                open={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                open={true}
+                onClose={closeModal}
+                
                 >
                 <Modal.Header>Pharmacy Data</Modal.Header>
                 <Modal.Content>
+                    <Message 
+                        attached 
+                        error 
+                        hidden={!updateError}
+                        onDismiss={handleDismiss}
+                        >
+                        <Icon name='exclamation' />
+                        There was an error when updating the Pharmacy. Please try again.
+                        </Message>
                     <Form>
                         <Form.Field>
                             <label>Name</label>
                             <Input
-                                value={pharmacyData?.name}
+                                name="name"
+                                value={updatedPharmacy.name}
+                                onChange={handleInputChange}
                                 />
                         </Form.Field>
-
+                        <Form.Field>
+                            <label>Address</label>
+                            <Input
+                                name="address"
+                                value={updatedPharmacy.address}
+                                onChange={handleInputChange}
+                                />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>City</label>
+                            <Input
+                                name="city"
+                                value={updatedPharmacy.city}
+                                onChange={handleInputChange}
+                                />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>State</label>
+                            <Input
+                                name="state"
+                                value={updatedPharmacy.state}
+                                onChange={handleInputChange}
+                                />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>Zip Code</label>
+                            <Input
+                                name="zip"
+                                value={updatedPharmacy.zip}
+                                onChange={handleInputChange}
+                                />
+                        </Form.Field>
                     </Form>
                 </Modal.Content>
+                <Modal.Actions>
+                    <Button.Group>
+                    <Button onClick={closeModal}>Cancel</Button>
+                    <Button.Or />
+                    <Button positive onClick={saveChanges}>Save</Button>
+                    </Button.Group>
+                </Modal.Actions>
             </Modal>
         </>
     )

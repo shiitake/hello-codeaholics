@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, ButtonProps, Form, Input } from 'semantic-ui-react'
 import { apiService } from '../api/apiService';
 import { Pharmacy } from '../api/types';
+import PharmacyModal from './pharmacymodal';
 import './pharmacies.css';
 
 const Pharmacies = () => {
@@ -39,24 +40,11 @@ const Pharmacies = () => {
     return (
         <>
         <div id="pharmacy-container">
-        <Modal
-            open={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            >
-                <Modal.Header>Pharmacy Data</Modal.Header>
-                <Modal.Content>
-                    This is the pharmacy data
-                    <Form>
-                        <Form.Field>
-                            <label>Name</label>
-                            <Input
-                                value={pharmacyData?.name}
-                                />
-                        </Form.Field>
 
-                    </Form>
-                </Modal.Content>
-            </Modal>
+        { pharmacyData !== null 
+        ? <PharmacyModal pharmacyData={pharmacyData} />
+        : ""        
+    }
         <Table unstackable sortable selectable celled fixed className='pharmacy-table'>
             <Table.Header>
                 <Table.Row>

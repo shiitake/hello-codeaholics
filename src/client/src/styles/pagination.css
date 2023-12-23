@@ -1,0 +1,41 @@
+.paginationPostCount {
+    width: 20%;
+    height: 40px;
+    border: 1px solid #e3e3e3;
+    padding: 10px;
+    margin-left: 10px;
+    color: rgba(180,209,95,1);
+}
+
+.paginationBttns {
+    width: 80%;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.paginationBttns a {
+    padding: 10px;
+    border: 1px solid #e3e3e3;
+    color: rgba(180,209,95,1);
+    cursor: pointer;
+}
+
+.paginationBttns a:hover {
+    color: white;
+    background-color: rgba(180,209,95,1);
+}
+
+.paginationActive a {
+    color: white;
+    background-color: rgba(180,209,95,1);
+}
+
+
+.paginateandcount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

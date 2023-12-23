@@ -27,20 +27,6 @@
     justify-content: center;
 }
 
-
-
-.navMenu {
-    padding: 0%;
-    width: 100;
-    margin: 0%;
-}
-
-a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}
-
 html {
     font-size: 14px;
 }

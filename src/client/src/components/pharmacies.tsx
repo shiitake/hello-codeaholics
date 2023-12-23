@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Table, Button, Loader} from 'semantic-ui-react'
+import { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
+import { Table, Button, Loader, Dropdown} from 'semantic-ui-react'
 import { apiService } from '../api/apiService';
 import { Pharmacy } from '../api/types';
 import PharmacyModal from './PharmacyModal'
-import './pharmacies.css';
+import '../styles/pharmacies.css';
+import '../styles/pagination.css';
 
 const Pharmacies = () => {
+
+    type PageChange = {
+        selected: number
+    }
 
     const [pageNumber, setPageNumber] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(5)
@@ -43,6 +49,12 @@ const Pharmacies = () => {
 
     }
 
+    const pageCount: number = pharmacyList ? Math.ceil(pharmacyList?.length / postsPerPage) : 0;
+    const changePage = ({ selected }: PageChange) => {
+        console.log('page number: ', selected);
+        setPageNumber(selected)
+    }
+
     return (
         <>
         <div id="pharmacy-container">
@@ -56,11 +68,11 @@ const Pharmacies = () => {
                     <Table.HeaderCell>State</Table.HeaderCell>
                     <Table.HeaderCell>Zip Code</Table.HeaderCell>
                     <Table.HeaderCell>Fill Count</Table.HeaderCell>
-                    <Table.HeaderCell></Table.HeaderCell>
+                    <Table.HeaderCell>Edit</Table.HeaderCell>
                 </Table.Row>
            </Table.Header>
            <Table.Body>
-            {pharmacyList != null && pharmacyList.length > 0 ? pharmacyList.map((row: Pharmacy, index: number) => {
+            {pharmacyList != null && pharmacyList.length > 0 ? pharmacyList.slice(pageNumber, pageNumber + postsPerPage).map((row: Pharmacy, index: number) => {
                 return <Table.Row key={index} id="tr">
                     <Table.Cell>{row.name}</Table.Cell>
                     <Table.Cell>{row.address}</Table.Cell>
@@ -76,10 +88,26 @@ const Pharmacies = () => {
                         />                            
                     </Table.Cell>
                 </Table.Row>
-                }) : ""
+                }) : null
             }
            </Table.Body>
         </Table>
+        <div className="paginateandcount">
+            <ReactPaginate
+                pageCount={pageCount}
+                onPageChange={changePage}
+                containerClassName={"paginationBttns"}
+                />
+                <span className="paginationPostCount">
+                    <Dropdown
+                        options={[3, 25, 50, 100].map((item: number, index: number) => ({ key: index, text: item, value: item, }))}
+                        onChange={(e, data) => { setPostsPerPage(Number(data.value))}}
+                        value={postsPerPage} 
+                    />
+                    {'  '} Posts per page
+                </span>
+                
+        </div>
         {selectedPharmacy && <PharmacyModal pharmacy={selectedPharmacy} closeModal={() => setSelectedPharmacy(null)} savePharmacy={handleSave} />
         }
         </div>

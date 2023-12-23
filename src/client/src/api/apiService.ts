@@ -1,10 +1,8 @@
 import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 import { Pharmacy, Response } from "./types"
 
-let baseUrl: string = "https://localhost:7080";
-
 let requestConfig: AxiosRequestConfig = {
-    baseURL: baseUrl
+    baseURL: import.meta.env.VITE_BASE_URL
 }
 
 export const apiService = {
@@ -17,7 +15,6 @@ export const apiService = {
         
         const response: AxiosResponse<Pharmacy[]> = await axios.get('/api/pharmacy', requestConfig);
         return response.data;
-        //return mockData;
     },
 
     async updatePharmacy(pharmacy: Pharmacy): Promise<Pharmacy|Response> {

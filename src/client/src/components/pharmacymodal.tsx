@@ -21,26 +21,22 @@ const PharmacyModal: React.FC<PharmacyModalProps> = ({ pharmacy, closeModal, sav
     }, [pharmacy]);
 
     const saveChanges = async () => {
-        console.log(updatedPharmacy);
         setUpdateError(false);
         try {
             const response = await apiService.updatePharmacy(updatedPharmacy);
             if ((response as Pharmacy).id !== undefined){
-                console.log('valid response', response);
-                //if save is successfull
-                savePharmacy(updatedPharmacy);
+                savePharmacy((response as Pharmacy));
                 closeModal();
             }
-            if ((response as Response).message !== undefined){
-                console.log('invalid response', response);
+            else 
+            {
+                console.log('Error response: ', (response as Response).message);
                 setUpdateError(true);
             }
-            
-            
         }
         catch(error){
             setUpdateError(true);
-            console.error('failed updating', error)
+            console.error('Failed updating: ', error)
         }
         
     }

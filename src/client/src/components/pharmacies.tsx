@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 import { Table, Button, Loader, Segment, Dimmer} from 'semantic-ui-react'
-import { apiService } from '../api/apiService';
 import { Pharmacy } from '../api/types';
 import PharmacyModal from './PharmacyModal'
 import '../styles/pharmacies.css';
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState, AppDispatch } from '../store/store'
-import { setCurrentPharmacy, setPharmacies, setStatus, fetchPharmacyList } from '../store/pharmacySlice';
+import { setCurrentPharmacy, setStatus, fetchPharmacyList } from '../store/pharmacySlice';
 
 const Pharmacies = () => {
 

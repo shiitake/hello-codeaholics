@@ -1,52 +1,51 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Button, Modal, Form, Input, Message, Icon } from 'semantic-ui-react';
 import { apiService } from '../api/apiService';
 import { Pharmacy, Response } from '../api/types';
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState, AppDispatch } from '../store/store'
+import { setCurrentPharmacy, updateCurrentPharmacy, setStatus } from '../store/pharmacySlice';
 
 interface PharmacyModalProps {
-    pharmacy: Pharmacy;
     closeModal: () => void;
-    savePharmacy: (pharmacy: Pharmacy) => void;
 }
 
-const PharmacyModal: React.FC<PharmacyModalProps> = ({ pharmacy, closeModal, savePharmacy }) => {
+const PharmacyModal: React.FC<PharmacyModalProps> = ({ closeModal }) => {
 
-    const [updatedPharmacy, setUpdatedPharmacy] = useState<Pharmacy>(pharmacy);
-    const [updateError, setUpdateError] = useState(false);
-
-    useEffect(() => {
-        pharmacy.id = 100;
-        pharmacy.updatedBy = 'portal';
-        setUpdatedPharmacy(pharmacy)
-    }, [pharmacy]);
+    const dispatch: AppDispatch = useDispatch();
+    const updatedPharmacy = useSelector((state: RootState) => state.pharmacies.currentPharmacy);
+    const updateError = useSelector((state: RootState) => state.pharmacies.status) == "failed";
 
     const saveChanges = async () => {
-        setUpdateError(false);
+        dispatch(setStatus("loading"))
         try {
-            const response = await apiService.updatePharmacy(updatedPharmacy);
+            const response = await apiService.updatePharmacy(updatedPharmacy as Pharmacy);
             if ((response as Pharmacy).id !== undefined){
-                savePharmacy((response as Pharmacy));
+                dispatch(setCurrentPharmacy(response as Pharmacy));
                 closeModal();
             }
             else 
             {
                 console.log('Error response: ', (response as Response).message);
-                setUpdateError(true);
+                dispatch(setStatus("failed"));
             }
         }
         catch(error){
-            setUpdateError(true);
+            dispatch(setStatus("idle"))
             console.error('Failed updating: ', error)
         }
         
     }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setUpdatedPharmacy({...updatedPharmacy, [event.target.name]: event.target.value});
+        if (updatedPharmacy) {
+            dispatch(updateCurrentPharmacy({[event.target.name]: event.target.value}));
+            dispatch(updateCurrentPharmacy({updatedBy: 'portal'}));
+        }
     }
 
     const handleDismiss = () => {
-        setUpdateError(false);
+        dispatch(setStatus("idle"));
     }
 
     return (
@@ -72,7 +71,7 @@ const PharmacyModal: React.FC<PharmacyModalProps> = ({ pharmacy, closeModal, sav
                             <label>Name</label>
                             <Input
                                 name="name"
-                                value={updatedPharmacy.name}
+                                value={updatedPharmacy?.name}
                                 onChange={handleInputChange}
                                 />
                         </Form.Field>
@@ -80,7 +79,7 @@ const PharmacyModal: React.FC<PharmacyModalProps> = ({ pharmacy, closeModal, sav
                             <label>Address</label>
                             <Input
                                 name="address"
-                                value={updatedPharmacy.address}
+                                value={updatedPharmacy?.address}
                                 onChange={handleInputChange}
                                 />
                         </Form.Field>
@@ -88,7 +87,7 @@ const PharmacyModal: React.FC<PharmacyModalProps> = ({ pharmacy, closeModal, sav
                             <label>City</label>
                             <Input
                                 name="city"
-                                value={updatedPharmacy.city}
+                                value={updatedPharmacy?.city}
                                 onChange={handleInputChange}
                                 />
                         </Form.Field>
@@ -96,7 +95,7 @@ const PharmacyModal: React.FC<PharmacyModalProps> = ({ pharmacy, closeModal, sav
                             <label>State</label>
                             <Input
                                 name="state"
-                                value={updatedPharmacy.state}
+                                value={updatedPharmacy?.state}
                                 onChange={handleInputChange}
                                 />
                         </Form.Field>
@@ -104,7 +103,7 @@ const PharmacyModal: React.FC<PharmacyModalProps> = ({ pharmacy, closeModal, sav
                             <label>Zip Code</label>
                             <Input
                                 name="zip"
-                                value={updatedPharmacy.zip}
+                                value={updatedPharmacy?.zip}
                                 onChange={handleInputChange}
                                 />
                         </Form.Field>

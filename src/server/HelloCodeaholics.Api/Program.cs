@@ -1,8 +1,7 @@
-using HelloCodeaholics.Common.Interfaces;
-using HelloCodeaholics.Core.Interfaces;
 using HelloCodeaholics.Data;
 using HelloCodeaholics.Infrastructure;
 using HelloCodeaholics.Services.Application;
+using HelloCodeaholics.Services.Interfaces;
 
 
 using Microsoft.EntityFrameworkCore;

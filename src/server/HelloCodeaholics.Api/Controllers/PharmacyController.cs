@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using HelloCodeaholics.Services.Application;
-using HelloCodeaholics.Core.Interfaces;
-using HelloCodeaholics.Core.Domain.Entities;
+using HelloCodeaholics.Services.Interfaces;
+using HelloCodeaholics.Common.Models;
+using HelloCodeaholics.Data.Entities;
 
 namespace HelloCodeaholics.Web.Controllers;
 
@@ -17,21 +18,21 @@ public class PharmacyController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Pharmacy>> GetPharmacy(int id)
+    public async Task<ActionResult<PharmacyViewModel>> GetPharmacy(int id)
     {
         var response = await _pharmacyService.GetPharmacyById(id);
         return Ok(response);
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Pharmacy>>> GetPharmacyList(int pageNumber = 1, int pageSize = 10)
+    public async Task<ActionResult<List<PharmacyViewModel>>> GetPharmacyList(int pageNumber = 1, int pageSize = 10)
     {
         var response = await _pharmacyService.GetPharmacyList(pageNumber, pageSize);
         return Ok(response);
     }
 
     [HttpPost]
-    public async Task<IActionResult> UpdatePharmacy(Pharmacy pharmacy)
+    public async Task<IActionResult> UpdatePharmacy(PharmacyViewModel pharmacy)
     {
         var response = await _pharmacyService.UpdatePharmacy(pharmacy);
         return response != null 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HelloCodeaholics.Core.Domain.Entities;
+using HelloCodeaholics.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HelloCodeaholics.Infrastructure;

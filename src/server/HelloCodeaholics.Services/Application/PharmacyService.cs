@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelloCodeaholics.Common.Interfaces;
-using HelloCodeaholics.Core.Domain.Entities;
-using HelloCodeaholics.Core.Interfaces;
-using HelloCodeaholics.Infrastructure;
+﻿using HelloCodeaholics.Common.Models;
+using HelloCodeaholics.Data;
+using HelloCodeaholics.Data.Entities;
+using HelloCodeaholics.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using HelloCodeaholics.Services.Mapper;
 
 namespace HelloCodeaholics.Services.Application;
 
@@ -21,28 +16,34 @@ public class PharmacyService : IPharmacyService
         _pharmacyRepository = pharmacyRepository;
     }
 
-    public async Task<Pharmacy?> GetPharmacyById(int id)
+    public async Task<PharmacyViewModel?> GetPharmacyById(int id)
     {
-        return await _pharmacyRepository.GetByIdAsync(id);
+        var pharmacy = await _pharmacyRepository.GetByIdAsync(id);
+        return pharmacy is null ? null : pharmacy.Map();
     }
 
-    public async Task<List<Pharmacy>> GetPharmacyList(int pageNumber = 1, int pageSize = 10)
+    public async Task<List<PharmacyViewModel>> GetPharmacyList(int pageNumber = 1, int pageSize = 10)
     {
-        return await _pharmacyRepository.GetAsync(null, pageNumber, pageSize, true);
+        var pharmacyList = await _pharmacyRepository.GetAsync(null, pageNumber, pageSize, true);
+        return pharmacyList.Map();
     }
 
     public async Task<bool> PharmacyExists(int id)
     {
         return await _pharmacyRepository.AnyAsync(x => x.Id == id);
     }
-    public async Task<Pharmacy?> UpdatePharmacy(Pharmacy pharmacy)
+    public async Task<PharmacyViewModel?> UpdatePharmacy(PharmacyViewModel model)
     {
-        if (!await PharmacyExists(pharmacy.Id))
+        var pharmacy = await _pharmacyRepository.GetByIdAsync(model.Id);
+        if (pharmacy is null)
         {
             return null!;
         }
-        pharmacy.UpdatedDate = DateTime.Now;
+        pharmacy.Update(model);
+        
         var updatedPharmacy = await _pharmacyRepository.UpdateAsync(pharmacy, x=> x.CreatedDate, x=> x.CreatedBy);
-        return updatedPharmacy;
+        return updatedPharmacy is null ? null : updatedPharmacy.Map();
     }
+
+
 }

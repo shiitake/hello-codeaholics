@@ -40,7 +40,6 @@ const PharmacyModal: React.FC<PharmacyModalProps> = ({ closeModal }) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (updatedPharmacy) {
             dispatch(updateCurrentPharmacy({[event.target.name]: event.target.value}));
-            dispatch(updateCurrentPharmacy({updatedBy: 'portal'}));
         }
     }
 

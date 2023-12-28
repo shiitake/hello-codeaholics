@@ -1,14 +1,8 @@
-﻿using HelloCodeaholics.Common.Interfaces;
-using HelloCodeaholics.Core.Domain.Entities;
-using HelloCodeaholics.Data;
-using HelloCodeaholics.Infrastructure;
+﻿using HelloCodeaholics.Data;
+using HelloCodeaholics.Data.Entities;
 using HelloCodeaholics.Services.Application;
+using HelloCodeaholics.Services.Mapper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnitTests.HelloCodeaholics.Services
 {
@@ -168,13 +162,16 @@ namespace UnitTests.HelloCodeaholics.Services
             var service = new PharmacyService(_pharmacyRepository);
             var existingPharmacy = _context.Pharmacies.Find(1);
 
-            existingPharmacy!.Name = "Updated Name";
+            var pharmacyModel = existingPharmacy!.Map();
+
+            pharmacyModel!.Name = "Updated Name";
 
             // Act
-            var updatedPharmacy = await service.UpdatePharmacy(existingPharmacy);
+            var updatedPharmacyModel = await service.UpdatePharmacy(pharmacyModel);
+            var updatedPharmacy = _context.Pharmacies.First(x => x.Id == updatedPharmacyModel!.Id);
 
             // Assert
-            Assert.Equal("Updated Name", updatedPharmacy.Name);
+            Assert.Equal("Updated Name", updatedPharmacyModel!.Name);
             Assert.NotNull(updatedPharmacy.UpdatedDate);
         }
 
@@ -184,9 +181,11 @@ namespace UnitTests.HelloCodeaholics.Services
             // Arrange
             var service = new PharmacyService(_pharmacyRepository);
             var invalidPharmacy = new Pharmacy() { Id = 7, Name = "Invalid Pharmacy" };
+            var invalidModel = invalidPharmacy.Map();
+            
 
             // Act
-            var updatedPharmacy = await service.UpdatePharmacy(invalidPharmacy);
+            var updatedPharmacy = await service.UpdatePharmacy(invalidModel);
 
             // Assert
             Assert.Null(updatedPharmacy);

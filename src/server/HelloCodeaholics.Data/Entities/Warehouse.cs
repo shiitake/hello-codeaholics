@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelloCodeaholics.Common.Domain.Entities.Base;
+﻿using HelloCodeaholics.Data.Entities;
 
-namespace HelloCodeaholics.Common.Domain.Entities
+namespace HelloCodeaholics.Common.Domain.Entities;
+
+public class Warehouse : Location
 {
-    public class Warehouse
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-
-    }
+    public int Id { get; set; }
+    public string Name { get; set; } = null!;
 }

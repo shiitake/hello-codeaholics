@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using HelloCodeaholics.Services.Application;
+﻿using Microsoft.AspNetCore.Mvc;
 using HelloCodeaholics.Services.Interfaces;
 using HelloCodeaholics.Common.Models;
-using HelloCodeaholics.Data.Entities;
 
-namespace HelloCodeaholics.Web.Controllers;
+namespace HelloCodeaholics.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

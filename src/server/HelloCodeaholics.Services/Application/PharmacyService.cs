@@ -2,7 +2,6 @@
 using HelloCodeaholics.Data;
 using HelloCodeaholics.Data.Entities;
 using HelloCodeaholics.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using HelloCodeaholics.Services.Mapper;
 
 namespace HelloCodeaholics.Services.Application;

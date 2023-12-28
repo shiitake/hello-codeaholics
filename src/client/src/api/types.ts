@@ -6,10 +6,6 @@ export interface Pharmacy {
     state: string,
     zip: number,
     filledPrescriptionsCount: number,
-    createdDate: Date,
-    createdBy: string,
-    updatedDate: Date,
-    updatedBy: string
 }
 
 export interface Response {

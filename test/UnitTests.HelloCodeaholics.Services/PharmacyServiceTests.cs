@@ -127,69 +127,68 @@ public class PharmacyServiceTests : IDisposable
     }
 
 
-        [Fact]
-        public async Task PharmacyExists_GivenExistingId_ReturnsTrue()
-        {
-            // Arrange
-            var service = new PharmacyService(_pharmacyRepository);
-            var id = 1; // Id of existing pharmacy
+    [Fact]
+    public async Task PharmacyExists_GivenExistingId_ReturnsTrue()
+    {
+        // Arrange
+        var service = new PharmacyService(_pharmacyRepository);
+        var id = 1; // Id of existing pharmacy
 
-            // Act
-            var exists = await service.PharmacyExists(id);
+        // Act
+        var exists = await service.PharmacyExists(id);
 
-            // Assert
-            Assert.True(exists);
-        }
-
-        [Fact]
-        public async Task PharmacyExists_GivenNonExistingId_ReturnsFalse()
-        {
-            // Arrange
-            var service = new PharmacyService(_pharmacyRepository);
-            var id = 9999; // Non-existing Id
-
-            // Act
-            var exists = await service.PharmacyExists(id);
-
-            // Assert
-            Assert.False(exists);
-        }
-
-        [Fact]
-        public async Task UpdatePharmacy_GivenPharmacy_ShouldUpdateAndReturnUpdatedPharmacy()
-        {
-            // Arrange
-            var service = new PharmacyService(_pharmacyRepository);
-            var existingPharmacy = _context.Pharmacies.Find(1);
-
-            var pharmacyModel = existingPharmacy!.Map();
-
-            pharmacyModel!.Name = "Updated Name";
-
-            // Act
-            var updatedPharmacyModel = await service.UpdatePharmacy(pharmacyModel);
-            var updatedPharmacy = _context.Pharmacies.First(x => x.Id == updatedPharmacyModel!.Id);
-
-            // Assert
-            Assert.Equal("Updated Name", updatedPharmacyModel!.Name);
-            Assert.NotNull(updatedPharmacy.UpdatedDate);
-        }
-
-        [Fact]
-        public async Task UpdatePharmacy_GivenInvalidPharmacy_ShouldReturnNull()
-        {
-            // Arrange
-            var service = new PharmacyService(_pharmacyRepository);
-            var invalidPharmacy = new Pharmacy() { Id = 7, Name = "Invalid Pharmacy" };
-            var invalidModel = invalidPharmacy.Map();
-            
-
-            // Act
-            var updatedPharmacy = await service.UpdatePharmacy(invalidModel);
-
-            // Assert
-            Assert.Null(updatedPharmacy);
-        }
-
+        // Assert
+        Assert.True(exists);
     }
+
+    [Fact]
+    public async Task PharmacyExists_GivenNonExistingId_ReturnsFalse()
+    {
+        // Arrange
+        var service = new PharmacyService(_pharmacyRepository);
+        var id = 9999; // Non-existing Id
+
+        // Act
+        var exists = await service.PharmacyExists(id);
+
+        // Assert
+        Assert.False(exists);
+    }
+
+    [Fact]
+    public async Task UpdatePharmacy_GivenPharmacy_ShouldUpdateAndReturnUpdatedPharmacy()
+    {
+        // Arrange
+        var service = new PharmacyService(_pharmacyRepository);
+        var existingPharmacy = _context.Pharmacies.Find(1);
+
+        var pharmacyModel = existingPharmacy!.Map();
+
+        pharmacyModel!.Name = "Updated Name";
+
+        // Act
+        var updatedPharmacyModel = await service.UpdatePharmacy(pharmacyModel);
+        var updatedPharmacy = _context.Pharmacies.First(x => x.Id == updatedPharmacyModel!.Id);
+
+        // Assert
+        Assert.Equal("Updated Name", updatedPharmacyModel!.Name);
+        Assert.NotNull(updatedPharmacy.UpdatedDate);
+    }
+
+    [Fact]
+    public async Task UpdatePharmacy_GivenInvalidPharmacy_ShouldReturnNull()
+    {
+        // Arrange
+        var service = new PharmacyService(_pharmacyRepository);
+        var invalidPharmacy = new Pharmacy() { Id = 7, Name = "Invalid Pharmacy" };
+        var invalidModel = invalidPharmacy.Map();
+        
+
+        // Act
+        var updatedPharmacy = await service.UpdatePharmacy(invalidModel);
+
+        // Assert
+        Assert.Null(updatedPharmacy);
+    }
+
 }

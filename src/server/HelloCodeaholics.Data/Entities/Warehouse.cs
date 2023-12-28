@@ -1,6 +1,4 @@
-﻿using HelloCodeaholics.Data.Entities;
-
-namespace HelloCodeaholics.Common.Domain.Entities;
+﻿namespace HelloCodeaholics.Data.Entities;
 
 public class Warehouse : Location
 {

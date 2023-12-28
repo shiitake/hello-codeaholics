@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace HelloCodeaholics.Infrastructure.Migrations
+namespace HelloCodeaholics.Data.Migrations
 {
     /// <inheritdoc />
     public partial class AddReportingTables : Migration

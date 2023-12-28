@@ -17,3 +17,8 @@ dotnet tool install --global dotnet-ef
 ```
 dotnet ef database update --project .\HelloCodeaholics.Data --context HelloCodeDbContext --startup-project .\HelloCodeaholics.Api
 ```
+
+
+### Alternative
+
+If no EF Core migrations have been applied to the database you can run the setup script `setup.sql` - this will create the tables needed to run the reporting scripts. 

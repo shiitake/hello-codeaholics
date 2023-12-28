@@ -3,7 +3,8 @@ import rxLogo from '../assets/rx.png';
 import '../styles/rxheader.css'
 
 const RxHeader = () => {
-	let env: string = import.meta.env.DEV === true ? 'Dev' : 'Prod';
+	//let env: string = import.meta.env.DEV === true ? 'Dev' : 'Prod';
+	let env: string = import.meta.env.MODE;
 	return (	
 	<div className='background'>
 		<div className='header-container'>

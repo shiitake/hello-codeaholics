@@ -3,8 +3,10 @@
 	All delivery records - dont show any ID columns - but instead show the Warehouse From name and the Pharmacy To name. 
 */
 
-SELECT w.[Name] AS [Warehouse From],
-	   p.[Name] AS [Pharmacy To],
+CREATE VIEW [dbo].[DeliveryDetail]
+as 
+SELECT w.[Name] AS [WarehouseFrom],
+	   p.[Name] AS [PharmacyTo],
        d.DrugName,
        d.UnitCount,
        d.UnitPrice,
@@ -15,3 +17,5 @@ FROM   delivery AS d
          ON d.WarehouseId = w.Id
        JOIN pharmacy AS p
          ON d.PharmacyId = p.Id 
+GO
+

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace HelloCodeaholics.Infrastructure.Migrations
+namespace HelloCodeaholics.Data.Migrations
 {
     /// <inheritdoc />
     public partial class UddedCreatedByAndUpdatedByToPharmacy : Migration

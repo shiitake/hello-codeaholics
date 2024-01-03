@@ -1,5 +1,4 @@
 using HelloCodeaholics.Data;
-using HelloCodeaholics.Infrastructure;
 using HelloCodeaholics.Services.Application;
 using HelloCodeaholics.Services.Interfaces;
 
@@ -34,6 +33,23 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/error");
     app.UseHsts();
 }
+
+var corsOrigins = builder.Configuration["Cors:Origins"];
+var originList = new List<string>();
+foreach (var origin in corsOrigins.Split(','))
+{
+    if (!string.IsNullOrEmpty(origin))
+    {
+        originList.Add(origin);
+    }
+}
+app.UseCors(builder =>
+{
+    builder.WithOrigins(originList.ToArray())
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials();
+});
 
 app.UseHttpsRedirection();
 

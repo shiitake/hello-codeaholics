@@ -9,6 +9,7 @@ public class Pharmacy : Location
     public DateTime? UpdatedDate { get; set;}
     public string CreatedBy { get; set; } = string.Empty;
     public string? UpdatedBy { get; set;}
-
+    public virtual List<Pharmacist> Pharmacists { get; set; } = new List<Pharmacist> { };
+    public virtual List<Delivery> Deliveries { get; set; } = new List<Delivery> { };
 
 }
